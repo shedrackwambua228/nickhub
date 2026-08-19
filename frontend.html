@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="NickHub Distribution — Professional music distribution for independent artists. Keep 100% royalties, global reach, musical soul." />
+  <title>NickHub · Music Distribution for Artists</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f4fbf6;
+      color: #0a2e1c;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(60, 186, 84, 0.03) 2%, transparent 2.5%),
+        repeating-linear-gradient(
+          45deg,
+          rgba(40, 167, 69, 0.02) 0px,
+          rgba(40, 167, 69, 0.02) 2px,
+          transparent 2px,
+          transparent 8px
+        ),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" opacity="0.08"><path fill="none" stroke="%231b8732" stroke-width="0.8" d="M0,20 Q25,5 50,20 T100,20 T150,20 T200,20" /><path fill="none" stroke="%231b8732" stroke-width="0.5" d="M0,30 Q30,18 60,30 T120,28 T200,30" /><circle cx="30" cy="12" r="1.2" fill="%231b8732"/><circle cx="80" cy="8" r="1.2" fill="%231b8732"/><circle cx="140" cy="14" r="1" fill="%231b8732"/></svg>');
+      background-repeat: repeat, repeat, repeat;
+      background-size: 60px 60px, auto, 180px 40px;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.08), transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .site-header {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(2px);
+      border-bottom: 1px solid #d0ebd7;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(145deg, #0f5c2f, #1a8748);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 18px rgba(26, 127, 66, 0.25);
+    }
+
+    .logo-icon i {
+      font-size: 26px;
+      color: white;
+    }
+
+    .logo-icon::after {
+      content: "♪";
+      position: absolute;
+      bottom: -6px;
+      right: -8px;
+      font-size: 16px;
+      background: #f9c74f;
+      color: #0a482a;
+      width: 22px;
+      height: 22px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border: 2px solid white;
+    }
+
+    .logo-text {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #0f5c2f, #2b9e4d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-text span {
+      font-weight: 500;
+      color: #1e7a44;
+      font-size: 13px;
+      letter-spacing: 1px;
+      margin-left: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #1f5437;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover {
+      color: #0f7b3a;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: #1a7f42;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 300;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .sidebar-menu {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: min(300px, 85%);
+      height: 100%;
+      background: linear-gradient(165deg, #ffffff, #f4fbf6);
+      z-index: 301;
+      display: flex;
+      flex-direction: column;
+      padding: 32px 24px;
+      border-left: 2px solid #c2e0cd;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 48px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #d0ebd7;
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sidebar-logo .logo-icon {
+      width: 42px;
+      height: 42px;
+    }
+
+    .sidebar-logo span {
+      font-size: 22px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #0f5c2f, #2b9e4d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .close-sidebar {
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: #1f5437;
+      cursor: pointer;
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      flex: 1;
+    }
+
+    .sidebar-nav a {
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+      color: #1f5437;
+      padding: 10px 0;
+      border-bottom: 1px solid #e0f0e4;
+    }
+
+    .sidebar-buttons {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .btn-outline {
+      border: 1.5px solid #bfe6cd;
+      background: transparent;
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      color: #1f6e3f;
+      display: inline-block;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #1a7f42;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn-secondary {
+      background: white;
+      border: 1px solid #c8e0d1;
+      color: #1d6e3f;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .hero {
+      padding: 80px 0 90px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -1.5px;
+      color: #0c311e;
+      margin-bottom: 20px;
+    }
+
+    .green-accent {
+      color: #1e8f4a;
+      border-bottom: 3px solid #b6e6c9;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #2c553d;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .trust-row {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      border-top: 1px solid #d9efdf;
+      padding-top: 28px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #2b7242;
+    }
+
+    .music-card {
+      background: #ffffffdd;
+      border-radius: 36px;
+      box-shadow: 0 24px 40px -16px rgba(30, 80, 30, 0.18);
+      border: 1px solid #c2e0cd;
+      padding: 28px;
+    }
+
+    .card-img {
+      background: #eef6e8;
+      border-radius: 28px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .stat-card {
+      background: #f0faf2;
+      border-radius: 20px;
+      padding: 14px 6px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: 800;
+      color: #0f6737;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #3c6e4a;
+    }
+
+    .features {
+      padding: 96px 0;
+      background: rgba(248, 253, 245, 0.7);
+      border-top: 1px solid #d4ecdb;
+      border-bottom: 1px solid #d4ecdb;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 64px;
+    }
+
+    .section-header h2 {
+      font-size: 40px;
+      font-weight: 700;
+      color: #114e2c;
+    }
+
+    .section-header p {
+      font-size: 18px;
+      color: #3e6a4c;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 32px;
+      border-radius: 32px;
+      border: 1px solid #d5f0df;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .feature-icon {
+      background: #e0f5e8;
+      width: 58px;
+      height: 58px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 28px;
+      color: #1f8a4c;
+    }
+
+    .feature-card h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #164a2c;
+    }
+
+    .feature-card p {
+      color: #4b6b55;
+    }
+
+    .mini-chart {
+      margin-top: 15px;
+      height: 100px;
+    }
+
+    .pricing {
+      padding: 96px 0;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .price-card {
+      background: white;
+      border-radius: 36px;
+      border: 1px solid #cee8d7;
+      padding: 40px 32px;
+    }
+
+    .price-card.popular-green {
+      border: 2px solid #1f9b51;
+      background: linear-gradient(145deg, #ffffff, #fafff7);
+      position: relative;
+    }
+
+    .popular-tag {
+      position: absolute;
+      top: -13px;
+      left: 32px;
+      background: #1d994f;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 18px;
+      border-radius: 50px;
+    }
+
+    .price {
+      font-size: 48px;
+      font-weight: 800;
+      margin: 20px 0;
+      color: #0a482a;
+    }
+
+    .price small {
+      font-size: 16px;
+      font-weight: 400;
+      color: #699e7c;
+    }
+
+    .price-card ul {
+      list-style: none;
+      margin: 32px 0;
+    }
+
+    .price-card li {
+      margin: 14px 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      color: #284e38;
+    }
+
+    .cta-musical {
+      background: linear-gradient(115deg, #0e452b, #1c6e41);
+      margin: 0 0 80px;
+      border-radius: 48px;
+      padding: 68px 48px;
+      text-align: center;
+    }
+
+    .cta-musical h2 {
+      font-size: 44px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .cta-musical p {
+      font-size: 18px;
+      margin: 16px auto 28px;
+      max-width: 550px;
+      color: #d9f5e6;
+    }
+
+    footer {
+      background: #0c2b1b;
+      color: #ceecd9;
+      border-top: 1px solid #215f38;
+      padding: 56px 0 36px;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-col h4 {
+      color: #c3efd4;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .footer-col a {
+      display: block;
+      color: #afdec0;
+      text-decoration: none;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .copyright {
+      text-align: center;
+      font-size: 13px;
+      color: #86b394;
+      border-top: 1px solid #235e38;
+      padding-top: 32px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 48px;
+      padding: 30px;
+      max-width: 450px;
+      width: 90%;
+    }
+
+    .dashboard-area {
+      padding: 20px 0 80px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0 20px;
+      border-top: 1px solid #d0ebd7;
+      z-index: 99;
+    }
+
+    .nav-item {
+      text-align: center;
+      flex: 1;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .nav-item i {
+      font-size: 22px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1px solid #d0ebd7;
+    }
+
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      background: white;
+    }
+
+    .message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .success {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .song-item,
+    .collab-item {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .stats-mini {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .stat-mini-card {
+      background: #f0faf2;
+      border-radius: 20px;
+      padding: 12px;
+      flex: 1;
+      text-align: center;
+    }
+
+    .stat-mini-card .number {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1a7f42;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .container {
+        padding: 0 20px;
+      }
+
+      .cta-musical h2 {
+        font-size: 32px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .logo-text {
+        font-size: 22px;
+      }
+
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="music-note-bg">
+    <i class="fas fa-music"></i>
+    <i class="fas fa-headphones"></i>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
+      <div class="navbar">
+
+        <a href="#" class="logo-wrapper">
+          <div class="logo-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+
+          <div class="logo-text">
+            NICKHUB<span>distribution</span>
+          </div>
+        </a>
+
+        <div class="nav-links">
+          <a href="#">Distribution</a>
+          <a href="#">Pricing</a>
+          <a href="#">For Labels</a>
+          <a href="#">Resources</a>
+          <a href="#" class="btn-outline">Sign in</a>
+          <a href="#" class="btn-primary">Start free</a>
+        </div>
+
+        <button class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE SIDEBAR -->
+  <div class="sidebar-overlay"></div>
+
+  <aside class="sidebar-menu">
+
+    <div class="sidebar-header">
+
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <i class="fas fa-bolt"></i>
+        </div>
+        <span>NICKHUB</span>
+      </div>
+
+      <button class="close-sidebar">
+        <i class="fas fa-times"></i>
+      </button>
+
+    </div>
+
+    <div class="sidebar-nav">
+      <a href="#">Distribution</a>
+      <a href="#">Pricing</a>
+      <a href="#">For Labels</a>
+      <a href="#">Resources</a>
+      <a href="#">Support</a>
+    </div>
+
+    <div class="sidebar-buttons">
+      <a href="#" class="btn-outline">Sign in</a>
+      <a href="#" class="btn-primary">Start free</a>
+    </div>
+
+  </aside>
+
+  <!-- MAIN FRONTEND -->
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="container">
+
+        <div class="hero-grid">
+
+          <div>
+
+            <h1>
+              Music distribution
+              <span class="green-accent">
+                built for independence
+              </span>
+            </h1>
+
+            <p>
+              Release your sound on Spotify, Apple Music, TikTok,
+              Boomplay, Audiomack + 150+ platforms.
+              Keep 100% royalties, transparent analytics,
+              and full creative control.
+            </p>
+
+            <div class="hero-buttons">
+
+              <button class="btn-primary">
+                <i class="fas fa-headphones"></i>
+                Start distribution
+              </button>
+
+              <button class="btn-secondary">
+                <i class="fas fa-chart-simple"></i>
+                Watch demo
+              </button>
+
+            </div>
+
+            <div class="trust-row">
+
+              <span class="trust-item">
+                <i class="fas fa-seedling"></i>
+                100% royalties
+              </span>
+
+              <span class="trust-item">
+                <i class="fas fa-chart-line"></i>
+                Real-time analytics
+              </span>
+
+              <span class="trust-item">
+                <i class="fas fa-music"></i>
+                Global stores
+              </span>
+
+            </div>
+
+          </div>
+
+          <!-- PLATFORM CARD -->
+          <div class="music-card">
+
+            <div class="card-img">
+
+              <div style="
+                display:grid;
+                grid-template-columns:repeat(3,1fr);
+                gap:15px;
+                text-align:center;
+                background:rgba(255,255,255,0.9);
+                border-radius:20px;
+                padding:20px;
+              ">
+
+                <div>
+                  <i class="fab fa-spotify" style="font-size:40px;color:#1DB954;"></i>
+                  <p>Spotify</p>
+                </div>
+
+                <div>
+                  <i class="fab fa-apple" style="font-size:40px;color:#000;"></i>
+                  <p>Apple Music</p>
+                </div>
+
+                <div>
+                  <i class="fab fa-tiktok" style="font-size:40px;color:#000;"></i>
+                  <p>TikTok</p>
+                </div>
+
+                <div>
+                  <i class="fab fa-youtube" style="font-size:40px;color:#FF0000;"></i>
+                  <p>YouTube Music</p>
+                </div>
+
+                <div>
+                  <i class="fab fa-amazon" style="font-size:40px;color:#FF9900;"></i>
+                  <p>Amazon Music</p>
+                </div>
+
+                <div>
+                  <i class="fas fa-headphones" style="font-size:40px;color:#1a7f42;"></i>
+                  <p>Boomplay</p>
+                </div>
+
+                <div>
+                  <i class="fas fa-music" style="font-size:40px;color:#3b5998;"></i>
+                  <p>Tidal</p>
+                </div>
+
+                <div>
+                  <i class="fab fa-soundcloud" style="font-size:40px;color:#ff7700;"></i>
+                  <p>SoundCloud</p>
+                </div>
+
+                <div>
+                  <i class="fas fa-globe" style="font-size:40px;color:#1a7f42;"></i>
+                  <p>150+ Stores</p>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="stat-grid">
+
+              <div class="stat-card">
+                <div class="stat-number">180+</div>
+                <div class="stat-label">Stores & DSPs</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-number">18h</div>
+                <div class="stat-label">Fast review</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Royalties kept</div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+
+      <div class="container">
+
+        <div class="section-header">
+
+          <h2>
+            <i class="fas fa-tree"></i>
+            Powerful features, amplified sound
+          </h2>
+
+          <p>
+            Everything independent artists need to distribute,
+            monetize, and grow.
+          </p>
+
+        </div>
+
+        <div class="features-grid">
+
+          <div class="feature-card">
+
+            <div class="feature-icon">
+              <i class="fas fa-globe-americas"></i>
+            </div>
+
+            <h3>Global reach</h3>
+
+            <p>
+              Distribute to Spotify, Apple, Tidal,
+              Boomplay, Anghami — worldwide coverage.
+            </p>
+
+          </div>
+
+          <div class="feature-card">
+
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+
+            <h3>Analytics dashboard</h3>
+
+            <p>
+              Track streams, playlist performance,
+              and revenue with intuitive insights.
+            </p>
+
+            <div class="mini-chart"></div>
+
+          </div>
+
+          <div class="feature-card">
+
+            <div class="feature-icon">
+              <i class="fas fa-hand-holding-heart"></i>
+            </div>
+
+            <h3>100% royalties</h3>
+
+            <p>
+              You keep every cent — no hidden fees,
+              artist-first model.
+            </p>
+
+          </div>
+
+          <div class="feature-card">
+
+            <div class="feature-icon">
+              <i class="fas fa-users"></i>
+            </div>
+
+            <h3>Label accounts</h3>
+
+            <p>
+              Manage multiple artists, split earnings,
+              and grow your roster.
+            </p>
+
+          </div>
+
+          <div class="feature-card">
+
+            <div class="feature-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+
+            <h3>Lightning delivery</h3>
+
+            <p>
+              Smart metadata review — live on stores
+              in under 24 hours.
+            </p>
+
+          </div>
+
+          <div class="feature-card">
+
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+
+            <h3>Secure payouts</h3>
+
+            <p>
+              Monthly payouts via bank, PayPal,
+              or Wise. Fully encrypted.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing">
+
+      <div class="container">
+
+        <div class="section-header">
+
+          <h2>Simple plans. No surprises.</h2>
+
+          <p>
+            Unlimited releases across all tiers —
+            from emerging artists to labels.
+          </p>
+
+        </div>
+
+        <div class="pricing-grid">
+
+          <!-- ARTIST -->
+          <div class="price-card">
+
+            <h3>Artist</h3>
+
+            <div class="price">
+              $3.49
+              <small>/month</small>
+            </div>
+
+            <ul>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                Unlimited releases
+              </li>
+
+              <li>
+                <i class="fas fa-check-circle"></i>
+                100% royalties
+              </li>
+
+              <li>
+                <i class="fas fa-check-circle"></i>
+                Basic analytics
+              </li>
+
+              <li>
+                <i class="fas fa-check-circle"></i>
+                Standard support
+              </li>
+            </ul>
+
+            <button class="btn-primary" style="width:100%;">
+              Start Artist
+            </button>
+
+          </div>
+
+          <!-- PRO LABEL -->
+          <div class="price-card popular-green">
+
+            <div class="popular-tag">
+              🔥 Most popular
+            </div>
+
+            <h3>Pro Label</h3>
+
+            <div class="price">
+              $7.99
+              <small>/month</small>
+            </div>
+
+            <ul>
+
+              <li>
+                <i class="fas fa-check-circle"></i>
+                All Artist features
+              </li>
+
+              <li>
+                <i class="fas fa-check-circle"></i>
+                Manage unlimited artists
+              </li>
+
+              <li>
+                <i class="fas fa-chart-line"></i>
+                Advanced streaming insights
+              </li>
+
+              <li>
+                <i class="fas fa-headset"></i>
+                Priority support
+              </li>
+
+              <li>
+                <i class="fas fa-code-branch"></i>
+                Royalty splits
+              </li>
+
+            </ul>
+
+            <button class="btn-primary" style="width:100%;">
+              Get Pro Label
+            </button>
+
+          </div>
+
+          <!-- ENTERPRISE -->
+          <div class="price-card">
+
+            <h3>Enterprise</h3>
+
+            <div class="price">
+              Custom
+            </div>
+
+            <ul>
+
+              <li>
+                <i class="fas fa-check-circle"></i>
+                White-label dashboard
+              </li>
+
+              <li>
+                <i class="fas fa-check-circle"></i>
+                Dedicated account partner
+              </li>
+
+              <li>
+                <i class="fas fa-check-circle"></i>
+                API & automation
+              </li>
+
+              <li>
+                <i class="fas fa-chart-line"></i>
+                Custom analytics
+              </li>
+
+            </ul>
+
+            <button class="btn-secondary" style="width:100%;">
+              Contact sales
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CTA -->
+    <div class="container">
+
+      <div class="cta-musical">
+
+        <h2>
+          <i class="fas fa-leaf"></i>
+          Distribute your music worldwide
+        </h2>
+
+        <p>
+          Join thousands of artists who trust NickHub —
+          global distribution, full ownership,
+          and powerful tools.
+        </p>
+
+        <button class="btn-primary">
+          Launch your release →
+        </button>
+
+        <div style="margin-top:20px;font-size:13px;opacity:0.8;">
+          No credit card required · 14-day trial
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-col">
+
+          <div class="logo-wrapper"
+               style="justify-content:flex-start;margin-bottom:12px;">
+
+            <div class="logo-icon"
+                 style="width:38px;height:38px;">
+
+              <i class="fas fa-bolt"
+                 style="font-size:20px;"></i>
+
+            </div>
+
+            <div class="logo-text"
+                 style="font-size:20px;">
+              NICKHUB
+            </div>
+
+          </div>
+
+          <p>
+            Professional music distribution
+            for artists and labels.
+          </p>
+
+        </div>
+
+        <div class="footer-col">
+
+          <h4>Product</h4>
+
+          <a href="#">Distribution</a>
+          <a href="#">Pricing</a>
+          <a href="#">Label Suite</a>
+          <a href="#">Mobile</a>
+
+        </div>
+
+        <div class="footer-col">
+
+          <h4>Resources</h4>
+
+          <a href="#">Help center</a>
+          <a href="#">Artist blog</a>
+          <a href="#">Music guide</a>
+          <a href="#">API docs</a>
+
+        </div>
+
+        <div class="footer-col">
+
+          <h4>Company</h4>
+
+          <a href="#">About NickHub</a>
+          <a href="#">Careers</a>
+          <a href="#">Press</a>
+          <a href="#">Contact</a>
+
+        </div>
+
+      </div>
+
+      <div class="copyright">
+
+        <span>
+          © 2025 NickHub Distribution — All rights reserved.
+        </span>
+
+        <span style="margin-left:16px;">
+          <i class="fab fa-spotify"></i>
+          <i class="fab fa-apple"></i>
+          <i class="fab fa-tiktok"></i>
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>

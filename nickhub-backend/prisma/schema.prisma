@@ -1,0 +1,129 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ARTIST
+  LABEL
+  ADMIN
+}
+
+enum SubStatus {
+  NONE
+  ACTIVE
+  TRIALING
+  PAST_DUE
+  CANCELED
+}
+
+enum ReleaseStatus {
+  DRAFT
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
+  DELIVERED
+  LIVE
+}
+
+enum WithdrawalStatus {
+  PENDING
+  APPROVED
+  PAID
+  REJECTED
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  firstName    String?
+  lastName     String?
+  displayName  String
+  role         Role     @default(ARTIST)
+  country      String?
+  payoutMethod String?
+  bio          String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  stripeCustomerId   String?   @unique
+  subscriptionId     String?
+  subscriptionStatus SubStatus @default(NONE)
+  subscriptionPlan   String? // "monthly" | "yearly"
+  currentPeriodEnd   DateTime?
+
+  releases    Release[]
+  withdrawals Withdrawal[]
+  tickets     SupportTicket[]
+}
+
+model Release {
+  id              String        @id @default(cuid())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id])
+  title           String
+  artistName      String
+  featuredArtists String?
+  releaseType     String // Single | EP | Album
+  genre           String?
+  language        String?
+  releaseDate     DateTime?
+  songwriters     String?
+  producers       String?
+  copyrightLine   String?
+  isrc            String?
+  upc             String?
+  audioUrl        String?
+  artworkUrl      String?
+  status          ReleaseStatus @default(DRAFT)
+  rejectionReason String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  royaltyLines RoyaltyLine[]
+}
+
+model RoyaltyLine {
+  id          String   @id @default(cuid())
+  releaseId   String
+  release     Release  @relation(fields: [releaseId], references: [id])
+  platform    String
+  territory   String
+  streams     Int      @default(0)
+  revenue     Float    @default(0)
+  periodStart DateTime
+  periodEnd   DateTime
+  importedAt  DateTime @default(now())
+}
+
+model Withdrawal {
+  id          String           @id @default(cuid())
+  userId      String
+  user        User             @relation(fields: [userId], references: [id])
+  amount      Float
+  method      String
+  status      WithdrawalStatus @default(PENDING)
+  requestedAt DateTime         @default(now())
+  processedAt DateTime?
+}
+
+model SupportTicket {
+  id        String       @id @default(cuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id])
+  topic     String
+  message   String
+  status    TicketStatus @default(OPEN)
+  createdAt DateTime     @default(now())
+}
