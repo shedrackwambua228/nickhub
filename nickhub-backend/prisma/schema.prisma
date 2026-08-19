@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 enum Role {
@@ -60,7 +61,7 @@ model User {
   stripeCustomerId   String?   @unique
   subscriptionId     String?
   subscriptionStatus SubStatus @default(NONE)
-  subscriptionPlan   String? // "monthly" | "yearly"
+  subscriptionPlan   String? // "artist" | "label"
   currentPeriodEnd   DateTime?
 
   releases    Release[]

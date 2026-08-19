@@ -12,6 +12,8 @@ coverage/
 .env.*
 !.env.example
 .vercel/
+.agents/
+.neon
 *.tsbuildinfo
 
 # Logs and OS files

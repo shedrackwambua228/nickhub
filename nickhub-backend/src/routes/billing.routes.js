@@ -3,6 +3,7 @@ const { requireAuth } = require('../middleware/auth');
 const c = require('../controllers/billing.controller');
 
 router.post('/checkout-session', requireAuth, c.createCheckoutSession);
+router.post('/confirm-session', requireAuth, c.confirmCheckoutSession);
 router.post('/portal-session', requireAuth, c.createPortalSession);
 router.get('/subscription', requireAuth, c.getSubscriptionStatus);
 

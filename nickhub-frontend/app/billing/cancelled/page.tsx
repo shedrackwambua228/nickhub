@@ -1,0 +1,2 @@
+import Link from "next/link";import s from"@/components/billing.module.css";
+export default function CancelledPage(){return <main className={s.shell}><section className={s.card}><div className={`${s.mark} ${s.error}`}>×</div><h1>Payment cancelled</h1><p>You were not charged. Your account and music remain unchanged.</p><Link className="button buttonPrimary" href="/#pricing">Return to plans</Link></section></main>}
